@@ -3,7 +3,7 @@ from .routers.jugadores import router as jugadores_router
 from .database import Base, engine
 
 def create_app():
-    app = FastAPI(title="SigmotoaFC", version="1")
+    app = FastAPI(title="SigmotoaFC")
     app.include_router(jugadores_router)
 
     @app.get("/health")
