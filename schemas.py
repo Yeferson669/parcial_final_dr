@@ -1,6 +1,8 @@
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel
 from typing import Optional
 from datetime import date
+from utils.positions import Position
+from utils.states import States
 
 class JugadorBase(BaseModel):
     nombre: str
@@ -10,20 +12,14 @@ class JugadorBase(BaseModel):
     nacionalidad: Optional[str] = None
     peso_kg: Optional[float] = None
     altura_cm: Optional[float] = None
-    estado: str = "activo"
+    estado: States = States.ACTIVO   
+    posicion: Position               
     foto_url: Optional[str] = None
     partidos_jugados: int = 0
     goles_anotados: int = 0
     goles_recibidos: int = 0
     tarjetas_amarillas: int = 0
     tarjetas_rojas: int = 0
-
-    @field_validator("estado")
-    @classmethod
-    def estado_valido(cls, v):
-        if v.lower() not in {"activo", "suspendido"}:
-            raise ValueError("Estado debe ser 'activo' o 'suspendido'")
-        return v.lower()
 
 class JugadorCreate(JugadorBase):
     pass
@@ -36,7 +32,8 @@ class JugadorUpdate(BaseModel):
     nacionalidad: Optional[str] = None
     peso_kg: Optional[float] = None
     altura_cm: Optional[float] = None
-    estado: Optional[str] = None
+    estado: Optional[States] = None   
+    posicion: Optional[Position] = None
     foto_url: Optional[str] = None
     partidos_jugados: Optional[int] = None
     goles_anotados: Optional[int] = None

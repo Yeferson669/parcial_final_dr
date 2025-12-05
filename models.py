@@ -7,7 +7,7 @@ from utils.states import States
 class Jugador(Base):
     __tablename__ = "jugadores"
 
-    # Identificación
+    
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String(150), nullable=False, index=True)
     numero_camiseta = Column(Integer, nullable=False, index=True)
@@ -16,25 +16,25 @@ class Jugador(Base):
     nacionalidad = Column(String(80), nullable=True, index=True)
     foto_url = Column(String(255), nullable=True)
 
-    # Estado y posición usando tus enums
+    
     estado = Column(SqlEnum(States), nullable=False, default=States.ACTIVO)
     posicion = Column(SqlEnum(Position), nullable=False, default=Position.DEFENSA_C)
 
-    # Soft delete
+   
     eliminado = Column(Boolean, default=False, index=True)
 
-    # Datos físicos
+   
     peso_kg = Column(Float, nullable=True, index=True)
     altura_cm = Column(Float, nullable=True, index=True)
 
-    # Datos deportivos
+    
     partidos_jugados = Column(Integer, default=0, index=True)
     goles_anotados = Column(Integer, default=0, index=True)
     goles_recibidos = Column(Integer, default=0, index=True)
     tarjetas_amarillas = Column(Integer, default=0, index=True)
     tarjetas_rojas = Column(Integer, default=0, index=True)
 
-    # --- Métodos derivados ---
+   
     def promedio_goles_anotados(self) -> float:
         return 0 if self.partidos_jugados == 0 else self.goles_anotados / self.partidos_jugados
 
