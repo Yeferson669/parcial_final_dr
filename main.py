@@ -1,13 +1,18 @@
 from fastapi import FastAPI
+from .routers.jugadores import router as jugadores_router
+from .database import Base, engine
 
-app = FastAPI(title="sigmotoa FC")
+def create_app():
+    app = FastAPI(title="FC Jugadores API", version="1.0.0")
+    app.include_router(jugadores_router)
+
+    @app.get("/health")
+    def health():
+        return {"status": "ok"}
+
+    return app
+
+app = create_app()
 
 
-@app.get("/")
-async def root():
-    return {"message": "sigmotoa FC data"}
-
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Bienvenido a sigmotoa FC {name}"}
+Base.metadata.create_all(bind=engine)
