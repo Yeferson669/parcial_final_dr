@@ -16,3 +16,7 @@ app = create_app()
 
 
 Base.metadata.create_all(bind=engine)
+
+
+
+

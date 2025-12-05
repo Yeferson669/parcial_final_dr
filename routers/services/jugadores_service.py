@@ -77,3 +77,4 @@ class JugadoresService:
         if conds:
             stmt = stmt.where(and_(*conds))
         return db.scalars(stmt).all()
+
